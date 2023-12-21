@@ -1,7 +1,7 @@
-// Modal.js
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { FaPlus, FaMinus } from "react-icons/fa6";
+import { FaMinus, FaPlus } from "react-icons/fa6";
+import { FiDelete } from "react-icons/fi";
 
 Modal.setAppElement("#root");
 
@@ -27,8 +27,9 @@ const CustomModal = ({ isOpen, onRequestClose, menu }) => {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      maxWidth: "300px", // Adjust the maximum width as needed
+      maxWidth: "400px", // Adjust the maximum width as needed
     },
+ 
   };
 
   return (
@@ -38,17 +39,25 @@ const CustomModal = ({ isOpen, onRequestClose, menu }) => {
       contentLabel="Add to Cart"
       style={modalStyle}
     >
-      <div className="card bg-base-100 shadow-xl">
+      <div className=" p-2 card bg-base-100 ">
+        <button
+          onClick={onRequestClose}
+          className="absolute text-3xl top-0 right-0 m-2  text-black"
+        >
+       <FiDelete />
+        </button>
         <img className="rounded-lg" src={image} alt={name} />
-        <h2>{name}</h2>
-        <p>Price: {price}$</p>
-        <div>
+        <h2 className="text-center text-2xl font-semibold">{name}</h2>
+        <p className="text-xl mb-5 mt-3">Price: {price}$</p>
+        <div className="btn bg-gradient-to-r from-red-500 to-white-500">
           <button onClick={decreaseQuantity}><FaMinus /></button>
           <span>{quantity}</span>
           <button onClick={increaseQuantity}><FaPlus /></button>
         </div>
-        <p>Total Price: {totalPrice}$</p>
-        <button>Add to Cart</button>
+        <p className="mb-4 text-xl mt-4">Total Price: {totalPrice.toFixed(0,2)}$</p>
+        <button className="bg-blue-500 text-white py-2 px-4 rounded">
+          Add to Cart
+        </button>
       </div>
     </Modal>
   );
