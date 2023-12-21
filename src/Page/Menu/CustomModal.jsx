@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { FiDelete } from "react-icons/fi";
+import toast from "react-hot-toast";
+
 
 Modal.setAppElement("#root");
 
@@ -19,6 +21,34 @@ const CustomModal = ({ isOpen, onRequestClose, menu }) => {
 
   const totalPrice = price * quantity;
 
+  const addToCart = () => {
+
+    const existingCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+
+    const existingItemIndex = existingCartItems.findIndex(item => item.name === name);
+
+    if (existingItemIndex !== -1) {
+    
+      existingCartItems[existingItemIndex].quantity += quantity;
+    } else {
+    
+      existingCartItems.push({
+        name,
+        image,
+       totalPrice,
+        quantity,
+      });
+    }
+
+
+    localStorage.setItem("cartItems", JSON.stringify(existingCartItems));
+    toast.success(`${name} added to cart!`)
+   
+    onRequestClose();
+  };
+  
+
   const modalStyle = {
     content: {
       top: "50%",
@@ -27,7 +57,7 @@ const CustomModal = ({ isOpen, onRequestClose, menu }) => {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      maxWidth: "400px", // Adjust the maximum width as needed
+      maxWidth: "400px",
     },
  
   };
@@ -55,7 +85,7 @@ const CustomModal = ({ isOpen, onRequestClose, menu }) => {
           <button onClick={increaseQuantity}><FaPlus /></button>
         </div>
         <p className="mb-4 text-xl mt-4">Total Price: {totalPrice.toFixed(0,2)}$</p>
-        <button className="bg-blue-500 text-white py-2 px-4 rounded">
+        <button      onClick={addToCart} className="bg-blue-500 text-white py-2 px-4 rounded">
           Add to Cart
         </button>
       </div>

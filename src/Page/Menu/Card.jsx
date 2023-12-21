@@ -19,7 +19,7 @@ const Card = ({ menu }) => {
   return (
     <div>
       <div className="flex  p-5 bg-base-100 shadow-xl">
-        <figure><img className='w-full rounded-lg ' src={image} alt={name} /></figure>
+        <figure><img className='w-full h-full rounded-lg ' src={image} alt={name} /></figure>
         <div className="card-body">
           <h2 className="card-title">{name}</h2>
           <p>Price: {price}$</p>
