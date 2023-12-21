@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+
 import Card from "./Card";
 
 
@@ -11,14 +11,16 @@ const Menu = () => {
         .then(data=>setMenus(data))
         
     },[])
-    console.log(menus)
+    
     return (
         <div>.
-         <div className="mt-10">
-        <h1 className="text-4xl font-bold text-center">Menu</h1>
-        {
-            menus.map(menu=><Card></Card>)
+         <div className="mt-12">
+        <h1 className="text-4xl font-bold text-center mb-10">Menu</h1>
+       <div className="grid lg:grid-cols-3  gap-5 md:grid-cols-2">
+       {
+            menus.map(menu=><Card key={menu._id} menu={menu}></Card>)
         }
+       </div>
          </div>
         </div>
     );
