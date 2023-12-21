@@ -6,7 +6,7 @@ import Card from "./Card";
 const Menu = () => {
     const [menus,setMenus]=useState([])
     useEffect(()=>{
-        fetch('menu.json')
+        fetch('/menu.json')
         .then(res=>res.json())
         .then(data=>setMenus(data))
         
